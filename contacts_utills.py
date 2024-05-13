@@ -1,8 +1,6 @@
-from custom_errors import PhoneError
 from error_decorator import input_error
 from adress_book_class import AddressBook
 from record_class import Record
-
 
 
 @input_error
@@ -20,12 +18,10 @@ def add_contact(args, book: AddressBook):
 
 @input_error
 def change_contact(args, book: AddressBook):
-    if not args or len(args) < 3:
-        raise PhoneError ("There are no arguments. I need your old and new phone numbers.")
     name, old_phone, new_phone = args
     record = book.find(name)
     if record is None:
-        raise PhoneError ("Contact does not exist.") 
+        return f"Contact does not exist." 
     record.edit_phone(old_phone, new_phone)
     
     return "Contact changed."
@@ -35,9 +31,9 @@ def show_phone(args: list[str], book: AddressBook)->str:
     name,  = args
     record = book.find(name)
     if record is None:
-        raise NameError ("Contact does not exist.")
+        return f"Contact does not exist."
     if not record.phones:
-        raise PhoneError ("Contact has no phone numbers.")
+        return "Contact has no phone numbers."
     
     return "; ".join(str(phone) for phone in record.phones)
 
