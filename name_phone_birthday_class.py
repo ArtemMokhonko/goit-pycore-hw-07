@@ -1,7 +1,7 @@
 import re
 from field_class import Field
 from datetime import datetime
-from custom_errors import BirthdayError
+from custom_errors import BirthdayError, PhoneError, NameError
 
 
 
@@ -10,9 +10,9 @@ class Name(Field):
     def __init__(self, name: str)-> None:
         
         if not name[0].isupper():
-            raise ValueError("Name must start with a capital letter")
+            raise NameError("Name must start with a capital letter")
         if len(name) <= 2:
-            raise ValueError("Name must be longer than 2 letters")
+            raise NameError("Name must be longer than 2 letters")
         super().__init__(name)
         
 
@@ -21,7 +21,7 @@ class Phone(Field):
     def __init__(self, phone):
         
         if not re.fullmatch(r'\d{10}', phone):
-            raise ValueError("Phone number must be 10 digits")
+            raise PhoneError("Phone number must be 10 digits")
         super().__init__(phone)
 
 
