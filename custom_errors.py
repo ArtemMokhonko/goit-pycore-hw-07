@@ -1,0 +1,2 @@
+class BirthdayError(Exception):
+    pass
